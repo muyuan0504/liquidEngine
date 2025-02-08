@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+  </head>
+  <body>
+    {% # 默认情况下，Liquid 不允许在一个标签中同时使用注释和语法命令 %}
+
+    {% comment %} 使用comment标签来定义注释 {% endcomment %}
+
+    {% # assign: 创建一个新变量,每个变量都需要单独通过标签申明 %}
+    {% assign file_name = 'tpl' %}
+    {% assign name = commonData.name %}
+
+    {%
+      # 在liquid模板中添加注释，注释标签内的东西都不会输出
+      # 每行都必须以 '#' 开头
+      # this is a comment
+      # that spans multiple lines
+    %}
+    <div>fileName: {{ file_name }}</div>
+    <div>name: {{ name }}</div>
+
+    {% # 不支持解构语法，必须要commonData: commonData，不能用 commonData 代替 %}
+    {% render 'section', commonData: commonData %}
+
+    {% # 通过 liquid 标签可以在一个分隔符中使用多个标签, 使 Liquid 逻辑书写更简洁 %}
+    {% liquid
+      assign country = 'china'
+      echo '国家: ' | append: country
+    %}
+  </body>
+</html>
