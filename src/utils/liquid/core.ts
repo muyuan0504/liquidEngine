@@ -1,5 +1,5 @@
 import { Liquid } from 'liquidjs';
-import path from 'path';
+import { registerFilter } from './extend';
 /**
  * Liquid 构造函数接受一个参数对象，用来定义各种模板引擎行为
  * @param options
@@ -19,6 +19,8 @@ export const initLiquidEngine = (options?: Object) => {
   };
 
   const engine = new Liquid(opts);
+
+  registerFilter(engine);
 
   return engine;
 };
