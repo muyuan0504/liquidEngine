@@ -51,6 +51,7 @@
     {% assign file_name = 'tpl' %}
     {% assign name = commonData.name %}
 
+    {% #单行注释 %}
     <div class="container">
       <h1>Liquid Template Demo</h1>
       
@@ -109,7 +110,8 @@
             <li>Replace: <code>{{ name | replace: 'a', 'A' }}</code></li>
           </ul>
         </div>
-      </section>
+      {% # 假如这里的标签未闭合 %}
+      {% comment %} </section> {% endcomment %}
 
       <section class="loops">
         <h2>Loops Example</h2>
