@@ -17,6 +17,7 @@ export const initLiquidEngine = (options?: Object) => {
     cache: true, // 指定是否缓存曾经读取和处理过的模板来提升性能
     root: 'src/liquid',
     extname: '.liquid',
+    partials: ['src/liquid/snippets'], // 指定 {% render %} 和 {% include %} 所使用的目录
     ...options,
   };
 

@@ -3,57 +3,125 @@
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Document</title>
+    <title>Liquid Template Example</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 5px;
+        border-left: 4px solid #3498db;
+      }
+      h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #3498db;
+        font-size: 1.2em;
+        margin-top: 0;
+      }
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: monospace;
+      }
+    </style>
   </head>
   <body>
-    {% # 默认情况下，Liquid 不允许在一个标签中同时使用注释和语法命令 %}
-
-    {% comment %} 使用comment标签来定义注释 {% endcomment %}
-
-    {% # assign: 创建一个新变量,每个变量都需要单独通过标签申明 %}
+    {% comment %}
+      Template variables and initialization
+    {% endcomment %}
     {% assign file_name = 'tpl' %}
     {% assign name = commonData.name %}
 
-    {%
-      # 在liquid模板中添加注释，注释标签内的东西都不会输出
-      # 每行都必须以 '#' 开头
-      # this is a comment
-      # that spans multiple lines
-    %}
-    <div>fileName: {{ file_name }}</div>
-    <div>name: {{ name }}</div>
+    <div class="container">
+      <h1>Liquid Template Demo</h1>
+      
+      <section class="basic-variables">
+        <h2>Basic Variables</h2>
+        <div>fileName: <code>{{ file_name }}</code></div>
+        <div>name: <code>{{ name }}</code></div>
+      </section>
 
-    {% comment %} 自定义标签 - upper {% endcomment %}
-    <div>插入自定义标签：{% upper name %}</div>
-    <div>插入自定义过滤器：{{ name | upcase }}</div>
+      <section class="custom-tags">
+        <h2>Custom Tags and Filters</h2>
+        <div>Custom tag example: <code>{% upper name %}</code></div>
+        <div>Built-in filter example: <code>{{ name | upcase }}</code></div>
+        <div>Additional filter example: <code>{{ name | upcase | append: ' - modified' }}</code></div>
+      </section>
 
-    {% # 不支持解构语法，必须要commonData: commonData，不能用 commonData 代替 %}
-    {% render 'section', commonData: commonData %}
+      <section class="includes">
+        <h2>Including Other Templates</h2>
+        {% comment %}
+          Include section template from snippets directory
+        {% endcomment %}
+        {% render 'section', commonData: commonData %}
+      </section>
 
-    {% # 通过 liquid 标签可以在一个分隔符中使用多个标签, 使 Liquid 逻辑书写更简洁 %}
-    {% liquid
-      assign country = 'china'
-      echo '国家: ' | append: country
-    %}
+      <section class="liquid-tag-example">
+        <h2>Liquid Tag Example</h2>
+        {% liquid
+          assign country = 'china'
+          echo '<div>国家: <code>' | append: country | append: '</code></div>'
+        %}
+      </section>
 
-    <div>
-      {% # case 语句 %}
-      {% assign food = 'bread' %}
-      {% case food %}
-        {% when 'bread' %}
-          今晚吃面包
-        {% when 'cookie', 'biscuit' %}
-          This is a cookie
-        {% else %}
-          This is neither a cake nor a cookie
-      {% endcase %}
-    </div>
+      <section class="control-flow">
+        <h2>Control Flow Example</h2>
+        <div>
+          {% assign food = 'bread' %}
+          {% case food %}
+            {% when 'bread' %}
+              <p>今晚吃面包 <code>(bread)</code></p>
+            {% when 'cookie', 'biscuit' %}
+              <p>This is a cookie</p>
+            {% else %}
+              <p>This is neither a cake nor a cookie</p>
+          {% endcase %}
+        </div>
+      </section>
 
-    <div>
-      <p>使用过滤器</p>
-      <span>
-        {{ 1 | sum: 2, 3 }}
-      </span>
+      <section class="filters-example">
+        <h2>Filters Example</h2>
+        <div>
+          <p>Sum filter result: <code>{{ 1 | sum: 2, 3 }}</code></p>
+          <p>Other examples:</p>
+          <ul>
+            <li>Capitalize: <code>{{ name | capitalize }}</code></li>
+            <li>Size: <code>{{ name | size }}</code></li>
+            <li>Replace: <code>{{ name | replace: 'a', 'A' }}</code></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="loops">
+        <h2>Loops Example</h2>
+        <div>
+          {% assign fruits = 'apple,banana,orange' | split: ',' %}
+          <ul>
+            {% for fruit in fruits %}
+              <li>{{ fruit | capitalize }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
     </div>
   </body>
 </html>
