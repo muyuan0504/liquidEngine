@@ -23,6 +23,10 @@
     <div>fileName: {{ file_name }}</div>
     <div>name: {{ name }}</div>
 
+    {% comment %} 自定义标签 - upper {% endcomment %}
+    <div>插入自定义标签：{% upper name %}</div>
+    <div>插入自定义过滤器：{{ name | upcase }}</div>
+
     {% # 不支持解构语法，必须要commonData: commonData，不能用 commonData 代替 %}
     {% render 'section', commonData: commonData %}
 
