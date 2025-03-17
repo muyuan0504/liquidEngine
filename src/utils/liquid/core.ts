@@ -1,4 +1,6 @@
-import { Liquid, TagToken } from 'liquidjs';
+import { Liquid } from 'liquidjs';
+import { registerFilter } from './extend';
+import { TagToken } from 'liquidjs';
 import path from 'path';
 /**
  * Liquid 构造函数接受一个参数对象，用来定义各种模板引擎行为
@@ -19,6 +21,8 @@ export const initLiquidEngine = (options?: Object) => {
   };
 
   const engine = new Liquid(opts);
+
+  registerFilter(engine);
 
   // 自定义标签接入
   engine.registerTag('upper', {

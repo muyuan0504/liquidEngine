@@ -35,5 +35,25 @@
       assign country = 'china'
       echo '国家: ' | append: country
     %}
+
+    <div>
+      {% # case 语句 %}
+      {% assign food = 'bread' %}
+      {% case food %}
+        {% when 'bread' %}
+          今晚吃面包
+        {% when 'cookie', 'biscuit' %}
+          This is a cookie
+        {% else %}
+          This is neither a cake nor a cookie
+      {% endcase %}
+    </div>
+
+    <div>
+      <p>使用过滤器</p>
+      <span>
+        {{ 1 | sum: 2, 3 }}
+      </span>
+    </div>
   </body>
 </html>
