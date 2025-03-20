@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 import { Injectable } from '@nestjs/common';
-import { initLiquidEngine } from 'src/utils/liquid';
+import { initLiquidEngine, validateDom } from 'src/utils/index';
 
 const errorDir = path.resolve(__dirname);
 console.error('---------- aiden --------------', errorDir);
@@ -57,20 +57,22 @@ export class ParseService {
     await writeFile(keepHtml, html, 'utf-8');
     console.log(`File ${keepHtml} has been written`);
 
-    const root = parse(html, {
-      comment: true,
-    });
+    // const root = parse(html, {
+    //   comment: true,
+    // });
 
     // console.error('---------- aiden root --------------', root);
 
-    const headDOM = root.querySelector('head');
-    const bodyDOM = root.querySelector('body');
+    // const headDOM = root.querySelector('head');
+    // const bodyDOM = root.querySelector('body');
 
     // 当liquid有异常标签时，如标签未结束，会导致解析异常，此时返回的html-dom为null
     // eg： <body><div> <span> </div></body>，此时div未结束，会导致解析异常，root.querySelector('body') 返回的bodyDOM为null
 
     // console.error('---------- aiden head--------------', headDOM);
     // console.error('---------- aiden body--------------', bodyDOM);
+
+    validateDom(html);
 
     return html;
   }

@@ -43,8 +43,17 @@
         font-family: monospace;
       }
     </style>
+    <script>
+      console.log('----00---')
+    </script>
   </head>
   <body>
+    <script>
+      console.log('-----11--')
+    </script>
+    <script>
+      console.log('----22---')
+    </script>
     {% comment %}
       Template variables and initialization
     {% endcomment %}
@@ -67,6 +76,8 @@
         <div>Built-in filter example: <code>{{ name | upcase }}</code></div>
         <div>Additional filter example: <code>{{ name | upcase | append: ' - modified' }}</code></div>
       </section>
+
+      <p>你好呀 </p></p>
 
       <section class="includes">
         <h2>Including Other Templates</h2>
@@ -101,7 +112,7 @@
 
       <section class="filters-example">
         <h2>Filters Example</h2>
-        <div>
+        <div>hahaha</div>
           <p>Sum filter result: <code>{{ 1 | sum: 2, 3 }}</code></p>
           <p>Other examples:</p>
           <ul>
